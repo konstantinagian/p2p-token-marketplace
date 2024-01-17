@@ -4,6 +4,7 @@ import { PublicKey } from '@solana/web3.js';
 import { useState, useMemo } from 'react';
 import { AppModal } from '../ui/ui-layout';
 import { useGetTokenAccounts } from '../account/account-data-access';
+import { AccountTokenBalance } from '../account/account-ui';
 
 export function ListingModal({
     hideModal,
@@ -53,11 +54,11 @@ export function ListingModal({
         {items && itemIndex > 0 && (
           <div className='text-left'>
             <h2 className='font-bold'>Mint:</h2>
-            <div className=''>{items[itemIndex - 1].pubkey.toString()}</div>
-            <h2 className='font-bold'>Token Account:</h2>
             <div className=''>{items[itemIndex - 1].account.data.parsed.info.mint.toString()}</div>
-            {/* <h2 className='font-bold'>Your Balance:</h2>
-            <div className=''>{balance}</div> */}
+            <h2 className='font-bold'>Token Account:</h2>
+            <div className=''>{items[itemIndex - 1].pubkey.toString()}</div>
+            <h2 className='font-bold'>Your Balance:</h2>
+            <AccountTokenBalance address={items[itemIndex - 1].pubkey} />
           </div>
         )}
       </AppModal>
