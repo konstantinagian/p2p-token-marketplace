@@ -8,10 +8,9 @@ pub mod marketplace {
 
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>, name: String, fee: u16) -> Result<()> {
+    pub fn initialize(ctx: Context<Initialize>, name: String) -> Result<()> {
         ctx.accounts.marketplace.set_inner(Marketplace {
             admin: ctx.accounts.admin.key(),
-            fee,
             name,
         });
 
@@ -51,11 +50,11 @@ pub struct Initialize<'info> {
         bump
     )]
     marketplace: Account<'info, Marketplace>,
-    #[account(
-        seeds = [b"treasury", marketplace.key().as_ref()],
-        bump,
-    )]
-    treasury: SystemAccount<'info>, // for our fees to go into
+    // #[account(
+    //     seeds = [b"treasury", marketplace.key().as_ref()],
+    //     bump,
+    // )]
+    // treasury: SystemAccount<'info>, // for our fees to go into
     system_program: Program<'info, System>,
     token_program: Program<'info, Token>,
 }
@@ -100,7 +99,7 @@ pub struct List<'info> {
 #[account]
 pub struct Marketplace {
     admin: Pubkey,
-    fee: u16, // if we want to charge a fee in each sale (percentage)
+    // fee: u16, // if we want to charge a fee in each sale (percentage)
     name: String,
 }
 
